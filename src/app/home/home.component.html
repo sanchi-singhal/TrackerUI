@@ -1,0 +1,16 @@
+<div class="home-container">
+  <h2>Welcome to Tracker</h2>
+  <p>This is the Angular UI application connected to the .NET Web API.</p>
+  
+  <div class="api-section">
+    <button (click)="callApi()" [disabled]="loading">
+      {{ loading ? 'Loading...' : 'Test API Connection' }}
+    </button>
+    
+    <div *ngIf="apiMessage" class="api-response">
+      <h3>API Response:</h3>
+      <pre>{{ apiMessage }}</pre>
+    </div>
+  </div>
+</div>
+
