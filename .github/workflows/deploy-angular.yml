@@ -22,7 +22,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npm run build -- --base-href "https://<your-username>.github.io/TrackerUI/"
+        run: npm run build -- --base-href "https://sanchi-singhal.github.io/TrackerUI/"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
