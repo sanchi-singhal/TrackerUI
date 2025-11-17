@@ -19,10 +19,6 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      # Copy web.config into the build output
-      - name: Copy web.config
-        run: |
-          cp web.config ./dist/TrackerUI/
 
       - name: Deploy to MonsterASP.NET via WebDeploy
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0
@@ -31,4 +27,3 @@ jobs:
           server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
           server-username: ${{ secrets.SERVER_USERNAME }}
           server-password: ${{ secrets.SERVER_PASSWORD }}
-          source-path: ./dist/TrackerUI
