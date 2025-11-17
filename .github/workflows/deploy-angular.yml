@@ -1,4 +1,4 @@
-name: Build and deploy Angular to MonsterASP.NET
+name: Build, publish and deploy Angular to MonsterASP.NET
 on: [push]
 
 jobs:
@@ -8,19 +8,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # Adjust if needed
+          node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      # Make sure the output directory matches your Angular project
-      # For Angular CLI, it's usually dist/<project-name>
+      # Copy web.config into the build output
+      - name: Copy web.config
+        run: |
+          cp web.config ./dist/TrackerUI/
+
       - name: Deploy to MonsterASP.NET via WebDeploy
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0
         with:
@@ -28,5 +31,4 @@ jobs:
           server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
           server-username: ${{ secrets.SERVER_USERNAME }}
           server-password: ${{ secrets.SERVER_PASSWORD }}
-          source-path: ./dist/TrackerUI  # Replace with actual output dir
-          remove-additional-files-flag: true             # Optional: clean remote before upload
+          source-path: ./dist/TrackerUI
